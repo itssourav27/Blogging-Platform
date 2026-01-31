@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Insights | Modern Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0f0f15;
+            --secondary-bg: #1a1a24;
+            --text-color: #ffffff;
+            --accent-color: #5e6ad2;
+            --accent-secondary: #ff6b6b;
+            --light-gray: #f0f0f0;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #777777;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --card-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0a0a0f 0%, #161622 100%);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 30px 0;
+            background-color: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .logo i {
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .blog-content {
+            padding: 60px 0;
+        }
+
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .post-header {
+            margin-bottom: 40px;
+        }
+
+        .post-title {
+            font-size: 42px;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--dark-gray);
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .post-meta i {
+            margin-right: 5px;
+            color: var(--accent-color);
+        }
+
+        .post-image {
+            width: 100%;
+            border-radius: var(--card-radius);
+            margin-bottom: 40px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .post-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .post-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .post-content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--light-gray);
+        }
+
+        .post-content p {
+            margin-bottom: 25px;
+        }
+
+        .post-content h2 {
+            font-size: 30px;
+            margin: 50px 0 20px;
+            color: var(--text-color);
+        }
+
+        .post-content h3 {
+            font-size: 24px;
+            margin: 40px 0 15px;
+            color: var(--text-color);
+        }
+
+        .post-content blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--medium-gray);
+        }
+
+        .post-content a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .post-content a:hover {
+            color: var(--accent-secondary);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 50px;
+            padding: 12px 25px;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-link i {
+            margin-right: 8px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(94, 106, 210, 0.3);
+        }
+
+        .back-link:hover i {
+            transform: translateX(-3px);
+        }
+
+        footer {
+            background-color: var(--secondary-bg);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .footer-col p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .post-title {
+                font-size: 32px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo"><i class="fas fa-microchip"></i>Tech<span>Insights</span></a>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tech News</a></li>
+                        <li><a href="#">Reviews</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+     <section class="blog-content">
+        <div class="container">
+            <div class="blog-container">
+                <div class="post-header">
+                <h1 class ="post-title"> {{ post.title }} </h1>
+                <div class ="post-meta">
+                <span><i class="far fa-calendar"></i> Published on {{ post.created_at }} </span>
+                <span><i class="far fa-clock"></i> {{ post.reading_time }} min read </span>
+                <span><i class="fa fa-user"></i> By {{ post.author }} </span>
+              </div>
+              </div>
+              <div class="post-image">
+              
+
+{% if post.image %}
+    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+{% endif %}
+
+<div>
+<div class="post-content">
+  <p>
+    {{ post.content | linebreaks }}
+    </p>
+</div>
+
+  <a href="{% url 'blog' %}" class="back-link"><i class="fas fa-arrow-left"></i>Back to Blog</a>
+  </div>
+  </section>
+    <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>About Tech Insights</h4>
+                    <p>Exploring the latest in technology, AI, software development, and the future of digital innovation.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Artificial Intelligence</a></li>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Cloud Computing</a></li>
+                        <li><a href="#">Cybersecurity</a></li>
+                        <li><a href="#">Internet of Things</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tech Insights. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+  
+
+
