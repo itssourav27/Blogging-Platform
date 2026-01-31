@@ -1,1044 +1,1189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tech Insights | Modern Blog</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary-bg: #0f0f15;
-            --secondary-bg: #1a1a24;
-            --text-color: #ffffff;
-            --accent-color: #5e6ad2;
-            --accent-secondary: #ff6b6b;
-            --light-gray: #f0f0f0;
-            --medium-gray: #e0e0e0;
-            --dark-gray: #777777;
-            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            --card-radius: 16px;
+      :root {
+        --primary-bg: #0f0f15;
+        --secondary-bg: #1a1a24;
+        --text-color: #ffffff;
+        --accent-color: #5e6ad2;
+        --accent-secondary: #ff6b6b;
+        --light-gray: #f0f0f0;
+        --medium-gray: #e0e0e0;
+        --dark-gray: #777777;
+        --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        --card-radius: 16px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Oxygen,
+          Ubuntu,
+          sans-serif;
+        background-color: var(--primary-bg);
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #0a0a0f 0%, #161622 100%);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      section {
+        padding: 5rem 0;
+      }
+
+      /* Header Styles */
+      header {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 1.5rem 0;
+        z-index: 1000;
+        transition: var(--transition);
+        background: rgba(15, 15, 21, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .fab {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: #5e6ad2;
+        color: white;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        z-index: 999; /* stays above everything */
+      }
+      .fab:hover {
+        background: #4a58c9;
+        transform: scale(1.1);
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-color);
+        text-decoration: none;
+        letter-spacing: -1px;
+      }
+
+      .logo span {
+        color: var(--accent-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 2.5rem;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 500;
+        font-size: 1rem;
+        transition: var(--transition);
+        position: relative;
+        padding: 0.5rem 0;
+      }
+
+      nav ul li a:hover {
+        color: var(--accent-color);
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color);
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      /* Hero Section */
+      .hero-blog {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        padding: 6rem 0 3rem;
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(rgba(15, 15, 21, 0.9), rgba(15, 15, 21, 0.9)),
+          url("https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200")
+            no-repeat center/cover;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 1.4rem;
+        color: var(--accent-color);
+        margin-bottom: 2rem;
+        font-weight: 500;
+      }
+
+      .search-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 1.2rem 1.5rem;
+        border-radius: 50px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        background: rgba(30, 30, 40, 0.7);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 4px rgba(94, 106, 210, 0.3);
+      }
+
+      .search-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--accent-color);
+        border: none;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .search-btn:hover {
+        background: #4a58c9;
+      }
+
+      /* Blog Content */
+      .blog-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+      }
+
+      .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2.5rem;
+      }
+
+      .post-card {
+        background-color: var(--secondary-bg);
+        border-radius: var(--card-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .post-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .post-image {
+        height: 220px;
+        background: linear-gradient(45deg, #2c2c3a, #1a1a24);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        overflow: hidden;
+      }
+
+      .post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .post-card:hover .post-image img {
+        transform: scale(1.05);
+      }
+
+      .post-content {
+        padding: 2rem;
+      }
+
+      .post-meta {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        color: #a0a0c0;
+        font-size: 0.9rem;
+      }
+
+      .post-meta span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-right: 1.5rem;
+      }
+
+      .post-tag {
+        background: rgba(94, 106, 210, 0.15);
+        color: var(--accent-color);
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .post-content h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+      }
+
+      .post-content p {
+        color: #a0a0c0;
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      .read-more {
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: var(--transition);
+        font-size: 1.1rem;
+      }
+
+      .read-more:hover {
+        color: var(--accent-color);
+        gap: 0.8rem;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: sticky;
+        top: 120px;
+      }
+
+      .sidebar-widget {
+        background-color: var(--secondary-bg);
+        border-radius: var(--card-radius);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--box-shadow);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .sidebar-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid rgba(94, 106, 210, 0.3);
+      }
+
+      .categories-list,
+      .tags-list {
+        list-style: none;
+      }
+
+      .categories-list li {
+        margin-bottom: 1rem;
+      }
+
+      .categories-list a {
+        color: var(--text-color);
+        text-decoration: none;
+        display: flex;
+        justify-content: space-between;
+        transition: var(--transition);
+        padding: 0.5rem 0;
+      }
+
+      .categories-list a:hover {
+        color: var(--accent-color);
+      }
+
+      .categories-list a span {
+        background: rgba(94, 106, 210, 0.15);
+        color: var(--accent-color);
+        padding: 0.2rem 0.8rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+      }
+
+      .tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+
+      .tags-list a {
+        background: rgba(94, 106, 210, 0.15);
+        color: var(--accent-color);
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .tags-list a:hover {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .popular-posts .post-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .popular-posts .post-item:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .popular-posts .post-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .popular-posts .post-info {
+        flex: 1;
+      }
+
+      .popular-posts .post-info h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.4;
+      }
+
+      .popular-posts .post-date {
+        color: #a0a0c0;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .newsletter-form input {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(30, 30, 40, 0.5);
+        color: var(--text-color);
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+
+      .newsletter-form button {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 8px;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .newsletter-form button:hover {
+        background: #4a58c9;
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+        gap: 0.5rem;
+      }
+
+      .pagination a,
+      .pagination span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+        background: var(--secondary-bg);
+        color: var(--text-color);
+        text-decoration: none;
+        transition: var(--transition);
+        font-weight: 600;
+      }
+
+      .pagination a:hover {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .pagination .current {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--secondary-bg);
+        padding: 4rem 0 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-widget h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.8rem;
+      }
+
+      .footer-widget h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background: var(--accent-color);
+      }
+
+      .footer-widget p {
+        color: #a0a0c0;
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-links a {
+        color: #a0a0c0;
+        text-decoration: none;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .footer-links a:hover {
+        color: var(--accent-color);
+        gap: 1rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(94, 106, 210, 0.15);
+        color: var(--text-color);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background: var(--accent-color);
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      .copyright {
+        text-align: center;
+        color: #a0a0c0;
+        font-size: 0.95rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .footer-content {
+          grid-template-columns: repeat(2, 1fr);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .blog-container {
+          grid-template-columns: 1fr;
         }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background: linear-gradient(135deg, #0a0a0f 0%, #161622 100%);
+        .sidebar {
+          position: static;
         }
+      }
 
-        h1, h2, h3, h4, h5 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        /* Header Styles */
-        header {
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem 0;
-            z-index: 1000;
-            transition: var(--transition);
-            background: rgba(15, 15, 21, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .fab {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: #5e6ad2;
-    color: white;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-    z-index: 999; /* stays above everything */
-}
-.fab:hover {
-    background: #4a58c9;
-    transform: scale(1.1);
-}
-
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-            color: var(--accent-color);
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
         }
 
         nav ul {
-            display: flex;
-            list-style: none;
+          position: fixed;
+          top: 80px;
+          right: -100%;
+          flex-direction: column;
+          background-color: var(--secondary-bg);
+          width: 100%;
+          padding: 2rem;
+          box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+          transition: var(--transition);
+          text-align: center;
+          gap: 1.5rem;
+        }
+
+        nav ul.active {
+          right: 0;
         }
 
         nav ul li {
-            margin-left: 2.5rem;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            font-size: 1rem;
-            transition: var(--transition);
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent-color);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: var(--transition);
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-color);
-        }
-
-        /* Hero Section */
-        .hero-blog {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            padding: 6rem 0 3rem;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(rgba(15, 15, 21, 0.9), rgba(15, 15, 21, 0.9)), 
-                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200') no-repeat center/cover;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+          margin: 0;
         }
 
         .hero-title {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
+          font-size: 2.5rem;
         }
 
         .hero-subtitle {
-            font-size: 1.4rem;
-            color: var(--accent-color);
-            margin-bottom: 2rem;
-            font-weight: 500;
+          font-size: 1.2rem;
         }
+      }
 
-        .search-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 1.2rem 1.5rem;
-            border-radius: 50px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: rgba(30, 30, 40, 0.7);
-            color: var(--text-color);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 4px rgba(94, 106, 210, 0.3);
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--accent-color);
-            border: none;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .search-btn:hover {
-            background: #4a58c9;
-        }
-
-        /* Blog Content */
-        .blog-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-        }
-
+      @media (max-width: 576px) {
         .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .post-card {
-            background-color: var(--secondary-bg);
-            border-radius: var(--card-radius);
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .post-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .post-image {
-            height: 220px;
-            background: linear-gradient(45deg, #2c2c3a, #1a1a24);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-color);
-            overflow: hidden;
-        }
-
-        .post-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .post-card:hover .post-image img {
-            transform: scale(1.05);
-        }
-
-        .post-content {
-            padding: 2rem;
-        }
-
-        .post-meta {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            color: #a0a0c0;
-            font-size: 0.9rem;
-        }
-
-        .post-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-right: 1.5rem;
-        }
-
-        .post-tag {
-            background: rgba(94, 106, 210, 0.15);
-            color: var(--accent-color);
-            font-size: 0.85rem;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .post-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            line-height: 1.3;
-        }
-
-        .post-content p {
-            color: #a0a0c0;
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .read-more {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-            font-size: 1.1rem;
-        }
-
-        .read-more:hover {
-            color: var(--accent-color);
-            gap: 0.8rem;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: sticky;
-            top: 120px;
-        }
-
-        .sidebar-widget {
-            background-color: var(--secondary-bg);
-            border-radius: var(--card-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--box-shadow);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .sidebar-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid rgba(94, 106, 210, 0.3);
-        }
-
-        .categories-list, .tags-list {
-            list-style: none;
-        }
-
-        .categories-list li {
-            margin-bottom: 1rem;
-        }
-
-        .categories-list a {
-            color: var(--text-color);
-            text-decoration: none;
-            display: flex;
-            justify-content: space-between;
-            transition: var(--transition);
-            padding: 0.5rem 0;
-        }
-
-        .categories-list a:hover {
-            color: var(--accent-color);
-        }
-
-        .categories-list a span {
-            background: rgba(94, 106, 210, 0.15);
-            color: var(--accent-color);
-            padding: 0.2rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-        }
-
-        .tags-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .tags-list a {
-            background: rgba(94, 106, 210, 0.15);
-            color: var(--accent-color);
-            font-size: 0.85rem;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .tags-list a:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        .popular-posts .post-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .popular-posts .post-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .popular-posts .post-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .popular-posts .post-info {
-            flex: 1;
-        }
-
-        .popular-posts .post-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .popular-posts .post-date {
-            color: #a0a0c0;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .newsletter-form input {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(30, 30, 40, 0.5);
-            color: var(--text-color);
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-
-        .newsletter-form button {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 8px;
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .newsletter-form button:hover {
-            background: #4a58c9;
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 3rem;
-            gap: 0.5rem;
-        }
-
-        .pagination a, .pagination span {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            background: var(--secondary-bg);
-            color: var(--text-color);
-            text-decoration: none;
-            transition: var(--transition);
-            font-weight: 600;
-        }
-
-        .pagination a:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        .pagination .current {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--secondary-bg);
-            padding: 4rem 0 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+          grid-template-columns: 1fr;
         }
 
         .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
-            margin-bottom: 3rem;
+          grid-template-columns: 1fr;
         }
 
-        .footer-widget h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.8rem;
+        .hero-title {
+          font-size: 2rem;
         }
+      }
 
-        .footer-widget h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--accent-color);
-        }
+      /* Theme Toggle */
+      .theme-toggle {
+        background: rgba(94, 106, 210, 0.15);
+        color: var(--accent-color);
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+        margin-left: 1rem;
+      }
 
-        .footer-widget p {
-            color: #a0a0c0;
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
+      .theme-toggle:hover {
+        background: var(--accent-color);
+        color: white;
+      }
 
-        .footer-links {
-            list-style: none;
-        }
+      /* Animation */
+      .fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+        opacity: 0;
+      }
 
-        .footer-links li {
-            margin-bottom: 0.8rem;
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
         }
-
-        .footer-links a {
-            color: #a0a0c0;
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-
-        .footer-links a:hover {
-            color: var(--accent-color);
-            gap: 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(94, 106, 210, 0.15);
-            color: var(--text-color);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background: var(--accent-color);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            color: #a0a0c0;
-            font-size: 0.95rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .blog-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                position: static;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            nav ul {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                flex-direction: column;
-                background-color: var(--secondary-bg);
-                width: 100%;
-                padding: 2rem;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-                transition: var(--transition);
-                text-align: center;
-                gap: 1.5rem;
-            }
-            
-            nav ul.active {
-                right: 0;
-            }
-            
-            nav ul li {
-                margin: 0;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .posts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            background: rgba(94, 106, 210, 0.15);
-            color: var(--accent-color);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-left: 1rem;
-        }
-
-        .theme-toggle:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        /* Animation */
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header -->
     <header>
-        <div class="container header-container">
-            <a href="#" class="logo">Tech<span>Insights</span></a>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">AI & ML</a></li>
-                    <li><a href="#">Web Dev</a></li>
-                    <li><a href="#">Cloud</a></li>
-                    <li><a href="#">DevOps</a></li>
-                    <li><a href="#">About</a></li>
-                    {% if user.is_authenticated %}
-    <li><a href="{% url 'logout' %}">Logout ({{ user.username }})</a></li>
-{% else %}
-    <li><a href="{% url 'login' %}">Login</a></li>
-    <li><a href="{% url 'register' %}">Register</a></li>
-{% endif %}
+      <div class="container header-container">
+        <a href="#" class="logo">Tech<span>Insights</span></a>
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">AI & ML</a></li>
+            <li><a href="#">Web Dev</a></li>
+            <li><a href="#">Cloud</a></li>
+            <li><a href="#">DevOps</a></li>
+            <li><a href="#">About</a></li>
+            {% if user.is_authenticated %}
+            <li>
+              <a href="{% url 'logout' %}">Logout ({{ user.username }})</a>
+            </li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
 
-                    <li>
-                        <button class="theme-toggle" id="themeToggle">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+            <li>
+              <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero-blog">
-        <div class="container hero-content fade-in">
-            <h1 class="hero-title">Exploring the Frontiers of Technology</h1>
-            <p class="hero-subtitle">Insights on AI, Web Development, and Emerging Technologies</p>
-            <div class="search-container">
-              <form method="get" action="{% url 'blog' %}">
-                
-                <input type="text" name="q" class="search-input" placeholder="Search articles..." value="{{ query }}">
-                <button type="submit" class="search-btn">Search</button>
-                </form>
-            </div>
+      <div class="container hero-content fade-in">
+        <h1 class="hero-title">Exploring the Frontiers of Technology</h1>
+        <p class="hero-subtitle">
+          Insights on AI, Web Development, and Emerging Technologies
+        </p>
+        <div class="search-container">
+          <form method="get" action="{% url 'blog' %}">
+            <input
+              type="text"
+              name="q"
+              class="search-input"
+              placeholder="Search articles..."
+              value="{{ query }}"
+            />
+            <button type="submit" class="search-btn">Search</button>
+          </form>
         </div>
+      </div>
     </section>
 
     <!-- Blog Content -->
     <section class="blog-content">
-        <div class="container">
-            <div class="blog-container">
-                <main class="posts-container">
-                    <div class="posts-grid">
-                        {% for post in posts %}
-                        <article class ="post-card fade-in">
-                        {% if post.image %}
-                        <div class="post-image">
-                        <img src="{{ post.image.url }}" alt="{{ post.title }}">
-                        </div>
-    <div class="post-content">
-    <span class ="post-tag">{{ post.tags }} </span>
-        <div class ="post-meta">
-        
-            <span><i class="far fa-user"></i> {{ post.author }} </span>
-            <span><i class="far fa-calendar"></i>  {{ post.created_at|date:"F j, Y" }} </span>       <span><i class="far fa-clock"></i> {{ post.reading_time }} min read </span>
+      <div class="container">
+        <div class="blog-container">
+          <main class="posts-container">
+            <div class="posts-grid">
+              {% for post in posts %}
+              <article class="post-card fade-in">
+                {% if post.image %}
+                <div class="post-image">
+                  <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+                </div>
+                <div class="post-content">
+                  <span class="post-tag">{{ post.tags }} </span>
+                  <div class="post-meta">
+                    <span><i class="far fa-user"></i> {{ post.author }} </span>
+                    <span
+                      ><i class="far fa-calendar"></i> {{
+                      post.created_at|date:"F j, Y" }}
+                    </span>
+                    <span
+                      ><i class="far fa-clock"></i> {{ post.reading_time }} min
+                      read
+                    </span>
+                  </div>
+                  <h3>{{post.title}}</h3>
+
+                  {% endif %}
+                  <p>{{ post.content|truncatewords:50 }}</p>
+                  <a href="{% url 'blog_detail' post.slug %}" class="read-more"
+                    >Read more <i class="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+              </article>
+
+              {% empty %}
+              <p>No blog posts yet. Check back soon!</p>
+              {% endfor %}
             </div>
-            <h3> {{post.title}} </h3>
-        
-        
-        {% endif %}
-        <p>{{ post.content|truncatewords:50 }}</p>
-        <a href="{% url 'blog_detail' post.slug %}" class="read-more" >Read more <i class="fas fa-arrow-right"></i> </a>
-    </div>
-    </article>
-  
-{% empty %}
-    <p>No blog posts yet. Check back soon!</p>
-{% endfor %}
-                      
-                         
 
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="pagination">
-                    {% if posts.has_previous %}
-                        <a href="?page={{ posts.previous_page_number }}"><i class="fas fa-chevron-left"></i></a>
-                        {% endif %}
-                        
-                        {% for num in posts.paginator.page_range %}
-                          {% if posts.number == num %}
-                         <span class="current">{{ num }}</span>
-                         {% else %}
-                         
-                        <a href="?page={{ num }}">{{ num }}</a>
-                        {% endif %}
-                      {% endfor %}
-                      {% if posts.has_next %}
-                          <a href="?page={{ posts.next_page_number }}"><i class="fas fa-chevron-right"></i></a>
-                          {% endif %}
-                        </div>
-                       
-                </main>
-
-                <!-- Sidebar -->
-                <aside class="sidebar">
-                    <!-- About Widget -->
-                                                {
-                    <div class="sidebar-widget fade-in">
-                        <h3 class="sidebar-title">About Me</h3>
-                        <div style="text-align: center; margin-bottom: 1.5rem;">
-                            <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto 1rem; border: 3px solid var(--accent-color);">
-                                {% load static %}
-<img src="{% static 'static/assets/ayush.jpeg' %}" alt="Ayush" 
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                            </div>
-                            <h4>Ayush Pati Tripathi</h4>
-                            <p style="color: #a0a0c0; margin-bottom: 1rem;">ML & Backend Developer</p>
-                            <p>Passionate about building intelligent systems and scalable web applications. Exploring the intersection of AI and web technologies.</p>
-                        </div>
-                    </div>
-
-                    <!-- Categories Widget -->
-                    <div class="sidebar-widget fade-in">
-                        <h3 class="sidebar-title">Categories</h3>
-                        <ul class="categories-list">
-                            <li><a href="#">Artificial Intelligence <span>12</span></a></li>
-                            <li><a href="#">Machine Learning <span>18</span></a></li>
-                            <li><a href="#">Web Development <span>24</span></a></li>
-                            <li><a href="#">Cloud Computing <span>9</span></a></li>
-                            <li><a href="#">DevOps <span>15</span></a></li>
-                            <li><a href="#">Data Science <span>11</span></a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Popular Posts -->
-                    <div class="sidebar-widget fade-in">
-                        <h3 class="sidebar-title">Popular Posts</h3>
-                        <div class="popular-posts">
-                            <div class="post-item">
-                                <div class="post-image">
-                                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=100" alt="Popular Post">
-                                </div>
-                                <div class="post-info">
-                                    <h4>Building Neural Networks from Scratch</h4>
-                                    <div class="post-date"><i class="far fa-calendar"></i> Sep 20, 2023</div>
-                                </div>
-                            </div>
-                            <div class="post-item">
-                                <div class="post-image">
-                                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=100" alt="Popular Post">
-                                </div>
-                                <div class="post-info">
-                                    <h4>Django REST Framework Best Practices</h4>
-                                    <div class="post-date"><i class="far fa-calendar"></i> Sep 12, 2023</div>
-                                </div>
-                            </div>
-                            <div class="post-item">
-                                <div class="post-image">
-                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=100" alt="Popular Post">
-                                </div>
-                                <div class="post-info">
-                                    <h4>Deploying ML Models with Docker</h4>
-                                    <div class="post-date"><i class="far fa-calendar"></i> Sep 5, 2023</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tags Widget -->
-                    <div class="sidebar-widget fade-in">
-                        <h3 class="sidebar-title">Tags</h3>
-                        <div class="tags-list">
-                            <a href="#">Python</a>
-                            <a href="#">Django</a>
-                            <a href="#">React</a>
-                            <a href="#">TensorFlow</a>
-                            <a href="#">AWS</a>
-                            <a href="#">Docker</a>
-                            <a href="#">Kubernetes</a>
-                            <a href="#">API</a>
-                            <a href="#">AI</a>
-                            <a href="#">ML</a>
-                        </div>
-                    </div>
-
-                    <!-- Newsletter -->
-                    <div class="sidebar-widget fade-in">
-                        <h3 class="sidebar-title">Newsletter</h3>
-                        <p style="color: #a0a0c0; margin-bottom: 1.5rem;">Subscribe to get the latest posts directly to your inbox.</p>
-                        <form class="newsletter-form">
-                            <input type="email" placeholder="Your email address" required>
-                            <button type="submit">Subscribe</button>
-                        </form>
-                    </div>
-                </aside>
+            <!-- Pagination -->
+            <div class="pagination">
+              {% if posts.has_previous %}
+              <a href="?page={{ posts.previous_page_number }}"
+                ><i class="fas fa-chevron-left"></i
+              ></a>
+              {% endif %} {% for num in posts.paginator.page_range %} {% if
+              posts.number == num %}
+              <span class="current">{{ num }}</span>
+              {% else %}
+              <a href="?page={{ num }}">{{ num }}</a>
+              {% endif %} {% endfor %} {% if posts.has_next %}
+              <a href="?page={{ posts.next_page_number }}"
+                ><i class="fas fa-chevron-right"></i
+              ></a>
+              {% endif %}
             </div>
+          </main>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+            <!-- About Widget -->
+
+            <div class="sidebar-widget fade-in">
+              <h3 class="sidebar-title">About Me</h3>
+              <div style="text-align: center; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 0 auto 1rem;
+                    border: 3px solid var(--accent-color);
+                  "
+                >
+                  {% load static %}
+                  <img
+                    src="{% static 'C:\Users\SOURAV CHOUDHARY\OneDrive\Desktop\Tech-Inshight-main\Tech-Inshight-main\static\Blog_App\assests\sourav.jpeg' %}"
+                    alt="Sourav"
+                    style="width: 100%; height: 100%; object-fit: cover"
+                  />
+                </div>
+                <h4>Sourav Raj</h4>
+                <p style="color: #a0a0c0; margin-bottom: 1rem">
+                  ML & Full Stack Developer
+                </p>
+                <p>
+                  Passionate about building intelligent systems and scalable web
+                  applications. Exploring the intersection of AI and web
+                  technologies.
+                </p>
+              </div>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="sidebar-widget fade-in">
+              <h3 class="sidebar-title">Categories</h3>
+              <ul class="categories-list">
+                <li>
+                  <a href="#">Artificial Intelligence <span>12</span></a>
+                </li>
+                <li>
+                  <a href="#">Machine Learning <span>18</span></a>
+                </li>
+                <li>
+                  <a href="#">Web Development <span>24</span></a>
+                </li>
+                <li>
+                  <a href="#">Cloud Computing <span>9</span></a>
+                </li>
+                <li>
+                  <a href="#">DevOps <span>15</span></a>
+                </li>
+                <li>
+                  <a href="#">Data Science <span>11</span></a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Popular Posts -->
+            <div class="sidebar-widget fade-in">
+              <h3 class="sidebar-title">Popular Posts</h3>
+              <div class="popular-posts">
+                <div class="post-item">
+                  <div class="post-image">
+                    <img
+                      src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=100"
+                      alt="Popular Post"
+                    />
+                  </div>
+                  <div class="post-info">
+                    <h4>Building Neural Networks from Scratch</h4>
+                    <div class="post-date">
+                      <i class="far fa-calendar"></i> Sep 20, 2023
+                    </div>
+                  </div>
+                </div>
+                <div class="post-item">
+                  <div class="post-image">
+                    <img
+                      src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=100"
+                      alt="Popular Post"
+                    />
+                  </div>
+                  <div class="post-info">
+                    <h4>Django REST Framework Best Practices</h4>
+                    <div class="post-date">
+                      <i class="far fa-calendar"></i> Sep 12, 2023
+                    </div>
+                  </div>
+                </div>
+                <div class="post-item">
+                  <div class="post-image">
+                    <img
+                      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=100"
+                      alt="Popular Post"
+                    />
+                  </div>
+                  <div class="post-info">
+                    <h4>Deploying ML Models with Docker</h4>
+                    <div class="post-date">
+                      <i class="far fa-calendar"></i> Sep 5, 2023
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags Widget -->
+            <div class="sidebar-widget fade-in">
+              <h3 class="sidebar-title">Tags</h3>
+              <div class="tags-list">
+                <a href="#">Python</a>
+                <a href="#">Django</a>
+                <a href="#">React</a>
+                <a href="#">TensorFlow</a>
+                <a href="#">AWS</a>
+                <a href="#">Docker</a>
+                <a href="#">Kubernetes</a>
+                <a href="#">API</a>
+                <a href="#">AI</a>
+                <a href="#">ML</a>
+              </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-widget fade-in">
+              <h3 class="sidebar-title">Newsletter</h3>
+              <p style="color: #a0a0c0; margin-bottom: 1.5rem">
+                Subscribe to get the latest posts directly to your inbox.
+              </p>
+              <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required />
+                <button type="submit">Subscribe</button>
+              </form>
+            </div>
+          </aside>
         </div>
+      </div>
     </section>
-
-
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-widget">
-                    <h3>Tech Insights</h3>
-                    <p>Exploring the frontiers of technology through insightful articles on AI, web development, cloud computing, and more.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-widget">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-widget">
-                    <h3>Categories</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> AI & ML</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Web Development</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cloud Computing</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> DevOps</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Data Science</a></li>
-                    </ul>
-                </div>
-                <div class="footer-widget">
-                    <h3>Contact</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Jammu, India</a></li>
-                        <li><a href="mailto:hello@ayushpati.dev"><i class="fas fa-envelope"></i> hello@ayushpati.dev</a></li>
-                        <li><a href="tel:+917006840410"><i class="fas fa-phone"></i> +91 7006840410</a></li>
-                    </ul>
-                </div>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-widget">
+            <h3>Tech Insights</h3>
+            <p>
+              Exploring the frontiers of technology through insightful articles
+              on AI, web development, cloud computing, and more.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="copyright">
-                &copy; 2025 Tech Insights Blog. All rights reserved. Created by Ayush Pati Tripathi
-            </div>
+          </div>
+          <div class="footer-widget">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="#"><i class="fas fa-chevron-right"></i> Home</a>
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-chevron-right"></i> About</a>
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-chevron-right"></i> Blog</a>
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-chevron-right"></i> Contact</a>
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right"></i> Privacy Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="footer-widget">
+            <h3>Categories</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="#"><i class="fas fa-chevron-right"></i> AI & ML</a>
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right"></i> Web Development</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right"></i> Cloud Computing</a
+                >
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-chevron-right"></i> DevOps</a>
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right"></i> Data Science</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="footer-widget">
+            <h3>Contact</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="#"
+                  ><i class="fas fa-map-marker-alt"></i> Jammu, India</a
+                >
+              </li>
+              <li>
+                <a href="mailto:souravraj2708@gmail.com"
+                  ><i class="fas fa-envelope"></i> souravraj2708@gmail.com</a
+                >
+              </li>
+              <li>
+                <a href="tel:+917006840410"
+                  ><i class="fas fa-phone"></i> +91 9142248890</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+        <div class="copyright">
+          &copy; 2025 Tech Insights Blog. All rights reserved. Created by Sourav
+          Raj
+        </div>
+      </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('nav ul');
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const navMenu = document.querySelector("nav ul");
 
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            if (navMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+      mobileMenuBtn.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        const icon = mobileMenuBtn.querySelector("i");
+        if (navMenu.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Theme Toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = themeToggle.querySelector("i");
+
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("light-theme");
+
+        if (document.body.classList.contains("light-theme")) {
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+          // Update CSS variables for light theme
+          document.documentElement.style.setProperty("--primary-bg", "#f8f9fa");
+          document.documentElement.style.setProperty(
+            "--secondary-bg",
+            "#ffffff",
+          );
+          document.documentElement.style.setProperty("--text-color", "#212529");
+          document.documentElement.style.setProperty(
+            "--accent-color",
+            "#5e6ad2",
+          );
+          document.documentElement.style.setProperty(
+            "--accent-secondary",
+            "#ff6b6b",
+          );
+          document.body.style.background =
+            "linear-gradient(135deg, #f0f2f5 0%, #e4e6e9 100%)";
+        } else {
+          themeIcon.classList.remove("fa-sun");
+          themeIcon.classList.add("fa-moon");
+          // Reset to dark theme variables
+          document.documentElement.style.setProperty("--primary-bg", "#0f0f15");
+          document.documentElement.style.setProperty(
+            "--secondary-bg",
+            "#1a1a24",
+          );
+          document.documentElement.style.setProperty("--text-color", "#ffffff");
+          document.documentElement.style.setProperty(
+            "--accent-color",
+            "#5e6ad2",
+          );
+          document.documentElement.style.setProperty(
+            "--accent-secondary",
+            "#ff6b6b",
+          );
+          document.body.style.background =
+            "linear-gradient(135deg, #0a0a0f 0%, #161622 100%)";
+        }
+      });
+
+      // Animation on scroll
+      const fadeElements = document.querySelectorAll(".fade-in");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = "translateY(0)";
             }
-        });
+          });
+        },
+        {
+          threshold: 0.1,
+        },
+      );
 
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
-        
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-theme');
-            
-            if (document.body.classList.contains('light-theme')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                // Update CSS variables for light theme
-                document.documentElement.style.setProperty('--primary-bg', '#f8f9fa');
-                document.documentElement.style.setProperty('--secondary-bg', '#ffffff');
-                document.documentElement.style.setProperty('--text-color', '#212529');
-                document.documentElement.style.setProperty('--accent-color', '#5e6ad2');
-                document.documentElement.style.setProperty('--accent-secondary', '#ff6b6b');
-                document.body.style.background = 'linear-gradient(135deg, #f0f2f5 0%, #e4e6e9 100%)';
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                // Reset to dark theme variables
-                document.documentElement.style.setProperty('--primary-bg', '#0f0f15');
-                document.documentElement.style.setProperty('--secondary-bg', '#1a1a24');
-                document.documentElement.style.setProperty('--text-color', '#ffffff');
-                document.documentElement.style.setProperty('--accent-color', '#5e6ad2');
-                document.documentElement.style.setProperty('--accent-secondary', '#ff6b6b');
-                document.body.style.background = 'linear-gradient(135deg, #0a0a0f 0%, #161622 100%)';
-            }
-        });
+      fadeElements.forEach((element) => {
+        element.style.opacity = 0;
+        element.style.transform = "translateY(30px)";
+        element.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        observer.observe(element);
+      });
 
-        // Animation on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        fadeElements.forEach(element => {
-            element.style.opacity = 0;
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observer.observe(element);
-        });
-
-        // Newsletter form submission
-        const newsletterForm = document.querySelector('.newsletter-form');
-        newsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const emailInput = newsletterForm.querySelector('input[type="email"]');
-            alert(`Thank you for subscribing with ${emailInput.value}! You'll receive our latest updates.`);
-            newsletterForm.reset();
-        });
+      // Newsletter form submission
+      const newsletterForm = document.querySelector(".newsletter-form");
+      newsletterForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const emailInput = newsletterForm.querySelector('input[type="email"]');
+        alert(
+          `Thank you for subscribing with ${emailInput.value}! You'll receive our latest updates.`,
+        );
+        newsletterForm.reset();
+      });
     </script>
-        <!-- Floating Action Button -->
+    <!-- Floating Action Button -->
 
     {% if user.is_authenticated %}
     <a href="{% url 'create_post' %}" class="fab">
-        <i class="fas fa-plus"></i>
+      <i class="fas fa-plus"></i>
     </a>
-{% else %}
+    {% else %}
     <a href="{% url 'login' %}" class="fab">
-        <i class="fas fa-plus"></i>
+      <i class="fas fa-plus"></i>
     </a>
-{% endif %}
-
-</body>
+    {% endif %}
+  </body>
 </html>
