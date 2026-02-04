@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -823,15 +824,12 @@
               <a href="?page={{ posts.previous_page_number }}"
                 ><i class="fas fa-chevron-left"></i
               ></a>
-              {% endif %}
-              {% for num in posts.paginator.page_range %}
-                {% if posts.number == num %}
+              {% endif %} {% for num in posts.paginator.page_range %} {% if
+              posts.number == num %}
               <span class="current">{{ num }}</span>
               {% else %}
               <a href="?page={{ num }}">{{ num }}</a>
-              {% endif %}
-              {% endfor %}
-              {% if posts.has_next %}
+              {% endif %} {% endfor %} {% if posts.has_next %}
               <a href="?page={{ posts.next_page_number }}"
                 ><i class="fas fa-chevron-right"></i
               ></a>
@@ -856,15 +854,14 @@
                     border: 3px solid var(--accent-color);
                   "
                 >
-                  {% load static %}
                   <img
-                    src="{% static 'C:\Users\SOURAV CHOUDHARY\OneDrive\Desktop\Tech-Inshight-main\Tech-Inshight-main\static\Blog_App\assests\sourav.jpeg' %}"
+                    src="{% static 'Blog_App/assests/sourav.jpeg' %}"
                     alt="Sourav"
                     style="width: 100%; height: 100%; object-fit: cover"
                   />
                 </div>
                 <h4>Sourav Raj</h4>
-                <p style="color: #a0a0c0; margin-bottom: 1rem">
+                <p style="color: #a0a0c0; margin-bottom: 1rem" R>
                   ML & Full Stack Developer
                 </p>
                 <p>
@@ -1190,5 +1187,3 @@
     {% endif %}
   </body>
 </html>
-
-
